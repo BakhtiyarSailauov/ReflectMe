@@ -1,0 +1,88 @@
+{% extends "main_app/base.html" %}
+
+{% block title %}Список заметок{% endblock %}
+
+{% block content %}
+<main class="main">
+        <div class="container mt-5">
+            <h2 class="mb-4">Список заметок</h2>
+            <div class="book">
+                <div class="book-pages">
+                   {% for note in notions %}
+                        <div class="book-page">
+                            <h5 class="book-title">{{ note.topic_notion }}</h5>
+                            <h6 class="book-tag">{{ note.tag_notion }}</h6>
+                            <a href="{% url 'notion:get_notion' note.id %}" class="btn">Подробнее</a>
+                            <a href="{% url 'notion:delete_notion' note.id %}" class="btn btn-danger">Удалить</a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+</main>
+
+<style>
+
+    .notation-privacy-status {
+        background-color: #007bff;
+        color: white;
+        padding: 5px;
+        border-radius: 5px;
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        font-size: 0.8em;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .book {
+        background-color: #f4f4f4;
+        border-radius: 15px;
+        box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
+        padding: 20px;
+    }
+
+    .book-pages {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .book-page {
+        background-color: #464775;
+        color: white;
+        margin-bottom: 20px;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .book-title {
+        font-size: 1.2em;
+        margin-bottom: 15px;
+    }
+
+    .btn {
+        display: inline-block;
+        margin-right: 10px;
+        padding: 5px 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: #ff6b6b;
+        color: white;
+        cursor: pointer;
+    }
+
+    .book-tag {
+        opacity: 0.75; /* Увеличивает видимость (меньше прозрачности) */
+        font-size: smaller; /* Меньший размер шрифта по сравнению с book-title */
+        color: #fff; /* Цвет текста, можно настроить */
+        margin-top: -15px; /* Минимальный отступ сверху, чтобы приблизить к book-title */
+    }
+
+    .btn-danger {
+        background-color: #c0392b;
+    }
+
+</style>
+{% endblock %}

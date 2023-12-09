@@ -1,0 +1,64 @@
+{% extends "main_app/base.html" %}
+
+{% block title %}Профиль пользователя{% endblock %}
+
+{% block content %}
+<main class="main">
+    <div class="container mt-5" style="background-color: #ffffff; padding: 30px; border-radius: 15px; box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);">
+        <div class="user-profile d-flex justify-content-between">
+            <div class="profile-info">
+                <h2 class="mb-4">{{ user.username }}'s Профиль</h2>
+                <p>Имя: {{ user.first_name }}</p>
+                <p>Фамилия: {{ user.last_name }}</p>
+                <p>Email: {{ user.email }}</p>
+            </div>
+            <div class="profile-pic">
+                {% if user.userprofile.profile_pic %}
+                    <img src="{{ user.userprofile.profile_pic.url }}" alt="Profile Picture" style="max-width: 150px; max-height: 150px; border-radius: 50%;">
+                {% else %}
+                    <p>Фотография профиля не загружена.</p>
+                {% endif %}
+                <a href="{% url 'notion:update_profile_pic' %}" class="btn btn-info mt-3">Изменить фото</a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<style>
+    .user-profile {
+        background-color: #6264A7;
+        color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .profile-info {
+        /* Стили для информации профиля */
+    }
+
+    .profile-pic {
+        /* Стили для блока с фотографией профиля */
+    }
+
+    .btn {
+        text-decoration: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        margin-right: 10px;
+        margin-bottom: 10px;
+    }
+
+    .btn-primary {
+        background-color: #ff6b6b;
+        color: white;
+    }
+
+    .btn-info {
+        background-color: #17a2b8;
+        color: white;
+    }
+</style>
+{% endblock %}

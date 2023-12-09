@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Заголовок страницы{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+
+        body {
+            background-color: #f4f4f4; /* Светло-серый фон, как в Teams */
+            font-family: 'Segoe UI', Arial, sans-serif; /* Шрифт Teams */
+            color: #5f5f5f; /* Цвет текста */
+        }
+
+        .bg-dark-custom {
+            background-color: #464775; /* Темно-синий цвет Teams */
+        }
+
+        .text-white-custom {
+            color: #ffffff; /* Белый текст */
+        }
+
+        footer {
+            background-color: #121212;
+            padding: 2rem 0;
+            background-color: #464775; /* Цвет фона футера */
+            color: #ffffff; /* Цвет текста в футере */
+        }
+
+        .logo {
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 2rem;
+            text-decoration: none;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .command-button, .btn-custom {
+            background-color: #6264A7;
+            border: none;
+            color: #ffffff;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .command-button:hover, .btn-custom:hover {
+            background-color: #55558a; /* Темнее при наведении */
+        }
+
+        .username {
+            font-weight: bold;
+            font-size: 2rem;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="bg-dark-custom text-white-custom">
+        <div class="container">
+            <div class="header-content">
+                <a href="{% url 'notion:main' %}" class="logo">ReflectMЕ</a>
+                {% if user.is_authenticated %}
+                        <a href="{% url 'notion:get_profile' user.id %}" class="text-white username"> {{ user.username }}</a>
+                {% endif %}
+                <div>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'notion:get_notions' %}" class="btn btn-outline-light btn-sm btn-custom command-button">Записи</a>
+                        <a href="{% url 'logout' %}" class="btn btn-custom">Выход</a>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="btn btn-custom">Войти</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="py-5">
+        <div class="container">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
+
+    <footer class="bg-dark-custom text-white-custom text-center">
+        <div class="container footer">
+            <p>&copy; 2023 ReflectME. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

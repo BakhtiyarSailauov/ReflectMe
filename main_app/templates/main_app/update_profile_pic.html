@@ -1,0 +1,45 @@
+{% extends "main_app/base.html" %}
+
+{% block title %}Изменить фото профиля{% endblock %}
+
+{% block content %}
+<main class="main">
+    <div class="container mt-5" style="background-color: #ffffff; padding: 30px; border-radius: 15px; box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);">
+        <h2 class="mb-4">Изменить фото профиля</h2>
+        <form action="{% url 'notion:update_profile_pic' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_profile_pic">Выберите изображение:</label>
+                {{ form.profile_pic }}
+            </div>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <a href="{% url 'notion:get_profile' user.id %}" class="btn btn-secondary">Отмена</a>
+        </form>
+    </div>
+</main>
+
+<style>
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .btn {
+        padding: 10px 15px;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        margin-right: 10px;
+        text-decoration: none;
+    }
+
+    .btn-primary {
+        background-color: #ff6b6b;
+        color: white;
+    }
+
+    .btn-secondary {
+        background-color: #6264A7;
+        color: white;
+    }
+</style>
+{% endblock %}

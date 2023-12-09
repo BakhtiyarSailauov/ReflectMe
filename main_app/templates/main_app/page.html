@@ -1,0 +1,97 @@
+{% extends "main_app/base.html" %}
+
+{% block title %}ReflectME{% endblock %}
+
+{% block content %}
+<main class="main">
+    <div class="container mt-5" style="background-color: #ffffff; padding: 30px; border-radius: 15px; box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);">
+        <div class="notation-card mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <div>
+                    <h3 class="notation-title">{{ notion.topic_notion }}</h3>
+                    <!-- Кнопка редактирования рядом с заголовком темы -->
+                    <a href="{% url 'notion:update_notion' notion.id %}" class="btn btn-primary">Изменить</a>
+                </div>
+                <span class="notation-tag">{{ notion.tag_notion }}</span>
+            </div>
+            <p class="notation-author">Автор: {{ notion.author.username }}</p>
+            <p class="notation-content">{{ notion.content }}</p>
+            <p class="notation-date">Создано: {{ notion.created_at|date:"d.m.Y H:i" }}</p>
+            <a href="{% url 'notion:delete_notion' notion.id %}" class="btn btn-danger">Удалить</a>
+            <div class="notation-privacy-status">
+                {{ notion.is_public|yesno:"Публичная,Приватная" }}
+            </div>
+        </div>
+    </div>
+</main>
+
+<style>
+
+    .notation-card {
+        background-color: #6264A7;;
+        padding: 20px;
+        border-radius: 10px;
+        color: white;
+        box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .notation-title {
+        color: #ff9900;
+        margin-bottom: 5px;
+    }
+
+    .notation-tag {
+        background-color: #007bff;
+        color: white;
+        padding: 3px 8px;
+        border-radius: 5px;
+        font-size: 0.9em;
+    }
+
+    .notation-author {
+        font-style: italic;
+        margin-bottom: 10px;
+    }
+
+    .notation-content {
+        margin-bottom: 10px;
+    }
+
+    .notation-date {
+        font-size: 0.8em;
+        color: #aaa;
+    }
+
+   .notation-privacy-status {
+        background-color: #007bff; /* Синий фон для публичной, измените цвет при необходимости */
+        color: white;
+        padding: 10px;
+        border-radius: 5px; /* Закругленные углы для куба */
+        position: absolute; /* Абсолютное позиционирование внутри notation-card */
+        bottom: 10px; /* Отступ снизу */
+        right: 10px; /* Отступ справа вместо слева */
+        font-size: 0.8em;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Добавление тени для эффекта "куба" */
+    }
+
+    .notation-card {
+        position: relative; /* Для позиционирования .notation-privacy-status */
+        /* Остальные стили */
+    }
+
+    .btn {
+        background-color: #ff6b6b;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        margin-right: 10px;
+    }
+
+    .btn-danger {
+        background-color: #c0392b;
+    }
+
+</style>
+{% endblock %}
